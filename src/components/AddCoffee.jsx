@@ -1,8 +1,10 @@
 import React from 'react';
+import Swal from 'sweetalert2'
 
 const addCoffee = () => {
-    const handleAddCoffee = event => {
+    const handleAddCoffee = async (event) => {
         event.preventDefault();
+
         const form = event.target;
         const name = form.name.value;
         const quantity = form.quantity.value;
@@ -12,25 +14,38 @@ const addCoffee = () => {
         const details = form.details.value;
         const photo = form.photo.value;
 
-        const newCoffee = [name, quantity, supplier, taste, category, details, photo];
-        // console.log(newCoffee);
+        const newCoffee = { name, quantity, supplier, taste, category, details, photo };
 
-        // send data to the server 
-        fetch('http://localhost:5000/Coffee', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-            },
-            body: JSON.stringify(newCoffee)
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-            })
+        // console.log("Sending coffee data:")
 
+        try {
+            const response = await fetch("http://localhost:5000/coffee", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newCoffee)
+            });
+
+            const data = await response.json();
+            console.log("Server Response:", data);
+            if(data.insertedId){
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'User added successfully',
+                    icon: 'success',
+                    confirmButtonText: 'Done!'
+                  })
+            }
+        } catch (error) {
+            console.error("Error sending data:", error);
+        }
 
 
     }
+
+
+
     return (
         <div className='bg-[#F4F3F0]'>
             <div className='text-center'>
