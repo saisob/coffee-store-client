@@ -19,7 +19,7 @@ const addCoffee = () => {
         // console.log("Sending coffee data:")
 
         try {
-            const response = await fetch("http://localhost:5000/coffee", {
+            const response = await fetch("http://localhost:3000/coffee", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -32,7 +32,7 @@ const addCoffee = () => {
             if(data.insertedId){
                 Swal.fire({
                     title: 'Success!',
-                    text: 'User added successfully',
+                    text: 'Coffee added successfully',
                     icon: 'success',
                     confirmButtonText: 'Done!'
                   })
@@ -40,8 +40,6 @@ const addCoffee = () => {
         } catch (error) {
             console.error("Error sending data:", error);
         }
-
-
     }
 
 

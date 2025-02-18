@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const coffeeCard = ({ coffee }) => {
@@ -18,8 +19,8 @@ const coffeeCard = ({ coffee }) => {
             if (result.isConfirmed) {
 
 
-                fetch(`http://localhost:5000/coffee/${_id}`,{
-                    method : "DELETE"
+                fetch(`http://localhost:3000/coffee/${_id}`, {
+                    method: "DELETE"
                 })
                     .then(res => res.json())
                     .then(data => {
@@ -55,7 +56,9 @@ const coffeeCard = ({ coffee }) => {
                 <div className="card-actions justify-end mt-10 ml-10">
                     <div className="join join-vertical my-4">
                         <button className="btn btn-ghost">View</button>
-                        <button className="btn btn-ghost">Edit</button>
+                        <Link to = {`updateCoffee/${_id}`}>
+                            <button className="btn btn-ghost">Edit</button>
+                        </Link>
                         <button
                             onClick={() => handleDelete(_id)}
                             className="btn bg-orange-500 btn-ghost">X</button>
